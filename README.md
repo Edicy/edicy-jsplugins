@@ -17,4 +17,13 @@ It is an jQuery plugin that makes Edicy forms submit with ajax. It handles all e
                 alert(text);
             }
         });
-    </script> 
+    </script>
+    
+### Edicy Form placeholders
+
+jQuery plugin that Makes form field titles displayed as placeholders.
+Works together with [mathiasbynens/jquery-placeholder](https://github.com/mathiasbynens/jquery-placeholder) for making placeholder support to browsers without html5 placeholder support.
+
+    <script type="text/javascript">
+      $('#content form').edicyFormPlaceholders();
+    </script>
