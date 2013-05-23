@@ -33,7 +33,7 @@ Works together with [mathiasbynens/jquery-placeholder](https://github.com/mathia
 
 ### Image alt titles
 
-jQuery plugin that makes alt attributse of image to real titles. Useful in Edicy to make user editable titles under content images.
+jQuery plugin that makes alt attribute of image to real titles. Useful in Edicy to make user editable titles under content images.
 
     <style type="text/css">
       .image-alt-title {
