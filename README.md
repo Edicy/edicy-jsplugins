@@ -27,3 +27,31 @@ Works together with [mathiasbynens/jquery-placeholder](https://github.com/mathia
     <script type="text/javascript">
       $('#content form').edicyFormPlaceholders();
     </script>
+
+
+## Image plugins
+
+### Image alt titles
+
+jQuery plugin that makes alt attributse of image to real titles. Useful in Edicy to make user editable titles under content images.
+
+    <style type="text/css">
+      .image-alt-title {
+        background: rgba(0,0,0,0.5);
+        color: white;
+        padding: 0 10px;
+      }
+    </style>
+    
+    <script type="text/javascript">
+      $('#content img').imageAltTitles();
+    </script>
+    
+Wrapper and title element classes can be configured as follows:
+
+    <script type="text/javascript">
+      $('#content img').imageAltTitles({
+        titleClass: 'image-alt-title',
+        wrapperClass: 'image-alt-wrapper'
+      });
+    </script>
