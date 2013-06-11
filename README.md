@@ -93,9 +93,9 @@ A jQuery based plugin that adds an fixed size image drag and drop area. User can
     
 ####Configuration parameters:
 
-*placeholder*: Placeholder text. Default: "Drag cover image for this post here."
-*dragHelp*: Additional image editing helper text. Default: "Drag image to adjust crop area."
-*editorHtml*: Thumb editor html. Default:
+**placeholder**: Placeholder text. Default: "Drag cover image for this post here."
+**dragHelp**: Additional image editing helper text. Default: "Drag image to adjust crop area."
+**editorHtml**: Thumb editor html. Default:
 
     <div class="thumb-editor-wrapper" style="width: {{width_b}}px;">
       <div class="delete-btn"><span class="edy-ico edy-ico-close"></span></div>
@@ -109,10 +109,10 @@ A jQuery based plugin that adds an fixed size image drag and drop area. User can
       </span>
     </div>
     
-*thumbHtml*: Thumb html. Default:
+**thumbHtml**: Thumb html. Default:
 
     <div class="thumb-wrapper"><img class="inner-image" src="{{src}}" /></div>
     
-*useOriginalImage*: If true full size original image is used for displaying thumbnail. Otherwise image filt to 800x600px. Default: false.
-*width*: width of thumbnail box. Default: 200.
-*height*: width of thumbnail box. Default: 200.
+**useOriginalImage**: If true full size original image is used for displaying thumbnail. Otherwise image filt to 800x600px. Default: false.
+**width**: width of thumbnail box. Default: 200.
+**height**: width of thumbnail box. Default: 200.
