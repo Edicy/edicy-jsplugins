@@ -59,7 +59,9 @@ Wrapper and title element classes can be configured as follows:
 ### Thumb editor - Image binding to content area
 
 A jQuery based plugin that adds an fixed size image drag and drop area. User can change the image crop location. Data about image is saved to Edicy content area defined by user. It is useful if thumbnail images must be bound to pages or blog articles.
-
+    
+    <link href="edicyThumbEditor.css" rel="stylesheet" />
+    
     <!-- Wrapper used for thumb editor rendering in editmode and for appending thumbs in other cases -->
     <div id="thumb-wrapper"></div>
     
@@ -67,7 +69,7 @@ A jQuery based plugin that adds an fixed size image drag and drop area. User can
     <div id="thumb-data-wrapper">
         {% contentblock name="thumb-content" only="text" %}{% endcontentblock %}
     </div>
-    <script type="text/javascript" src="jQuery.edicyThumbEditor.js"></script>
+    <script type="text/javascript" src="jquery.edicyThumbEditor.js"></script>
     
     <script type="text/javascript">
       {% if editmode %}
