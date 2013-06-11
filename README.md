@@ -55,3 +55,64 @@ Wrapper and title element classes can be configured as follows:
         wrapperClass: 'image-alt-wrapper'
       });
     </script>
+    
+### Thumb editor - Image binding to content area
+
+A jQuery based plugin that adds an fixed size image drag and drop area. User can change the image crop location. Data about image is saved to Edicy content area defined by user. It is useful if thumbnail images must be bound to pages or blog articles.
+
+    <!-- Wrapper used for thumb editor rendering in editmode and for appending thumbs in other cases -->
+    <div id="thumb-wrapper"></div>
+    
+    <!-- Content area where thumb data is bound --> 
+    <div id="thumb-data-wrapper">
+        {% contentblock name="thumb-content" only="text" %}{% endcontentblock %}
+    </div>
+    <script type="text/javascript" src="jQuery.edicyThumbEditor.js"></script>
+    
+    <script type="text/javascript">
+      {% if editmode %}
+        
+        // Thumb editor binding for editmode
+        $('#thumb-wrapper').edicyThumbEditor({
+          $saveTo: $('#thumb-data-wrapper'),
+          width: 200,
+          height: 200
+        });
+        
+      {% else %}
+        
+        // Binding thumb appender for appending thumbs to content
+        $('#thumb-wrapper').edicyAppendThumb({
+          $dataInside: $('#thumb-data-wrapper'),
+          width: 200,
+          height: 200 
+        });
+        
+      {% endif %}
+    </script>
+    
+####Configuration parameters:
+
+´placeholder´: Placeholder text. Default: "Drag cover image for this post here."
+´dragHelp´: Additional image editing helper text. Default: "Drag image to adjust crop area."
+´editorHtml´: Thumb editor html. Default:
+
+    <div class="thumb-editor-wrapper" style="width: {{width_b}}px;">
+      <div class="delete-btn"><span class="edy-ico edy-ico-close"></span></div>
+      <div class="thumb-editor js-thumb-editor" style="width: {{width}}px; height: {{height}}px;">
+        <span class="thumb-placeholder">
+          {{placeholder}}
+        </span>
+      </div>
+      <span class="thumb-additional-info">
+        {{dragHelp}}\
+      </span>
+    </div>
+    
+´thumbHtml´: Thumb html. Default:
+
+    <div class="thumb-wrapper"><img class="inner-image" src="{{src}}" /></div>
+    
+´useOriginalImage´: If true full size original image is used for displaying thumbnail. Otherwise image filt to 800x600px. Default: false.
+´width´: width of thumbnail box. Default: 200.
+´height´: width of thumbnail box. Default: 200.
