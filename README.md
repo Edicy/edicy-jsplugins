@@ -2,6 +2,95 @@
 
 Various javascrpt plugins and widgets for Edicy cms.
 
+## API plugins
+
+### Edicy blog article pages fetcher
+
+It is a jquery plugin that communicates with article api and fetches list with pagination.
+
+#####Article template script:
+
+    <script type="text/html" id="article-box-template">
+      <div class="article-box">
+        <div class="article-head">
+          <a href="[[url]]">
+            <span class="title">[[title]]</span>
+          </a>
+          <span class="date">[[date]]</span>
+        </div>
+        <div class="article-content">
+            <p>[[excerpt]]</p>
+            <p>[[body]]</p>
+        </div>
+      </div>
+    </script>
+    
+#####HTML:
+
+    <style>
+      .article-box { background: #def; padding: 15px; border-radius: 5px; margin-bottom: 10px; }
+    </style>
+
+    <div id="article-page-example"><!-- articles will be rendered here --></div>
+    
+    <button id="article-page-next">&lt; Older </button>
+    <button id="article-page-prev">Newer &gt;</button>
+    <span id="loading-status">Loading ...</span>
+    
+#####Script of binding:
+
+    <script type="text/javascript">
+      // initiates articles
+      $('#article-page-example').articlePages();
+      
+      // making prev and next buttons work
+      $('#article-page-prev').click(function() {
+          $('#article-page-example').articlePages('prev');
+      });
+      $('#article-page-next').click(function() {
+        $('#article-page-example').articlePages('next');
+      });
+      
+      // binding loading events to show user
+      $('#article-page-example').on({
+        'articles.loading': function() { $('#loading-status').html('Loading ...'); },
+        'articles.loaded': function() { $('#loading-status').html(''); }
+      });
+    </script>
+    
+####Configuration parameters:
+
+#####Tempate replacement strings are:
+
+[[url]]: url of article
+
+[[title]]: title of article
+
+[[excerpt]]: article excerpt
+
+[[date]]: date of article. defult format is (2013-11-01), but can be redefined in option dateFormat
+
+[[author]]: author of article
+
+[[body]]: the main article body
+  
+#####Options on initiation:
+  
+  $('#article-page-example').articlePages({
+    template: "#article-box-template", // element of template
+    perPage: 10, // how many articles per page
+    dateFormat: function(date) {
+        // for formating date object into string
+        return date.getFullYear() + "-" + (date.getMonth()+1) + "-" + date.getDate();
+    }
+  });
+  
+#####Additional actions
+
+jQueryElement.articlePages('prev'): gets previous older page
+jQueryElement.articlePages('next'): gets next newer page
+jQueryElement.articlePages('showPage', nr): gets page umber "nr"
+
 ## Form plugins
 
 ### Edicy Ajax Form plugin
