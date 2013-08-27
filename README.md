@@ -76,19 +76,21 @@ It is a jquery plugin that communicates with article api and fetches list with p
   
 #####Options on initiation:
   
-  $('#article-page-example').articlePages({
-    template: "#article-box-template", // element of template
-    perPage: 10, // how many articles per page
-    dateFormat: function(date) {
-        // for formating date object into string
-        return date.getFullYear() + "-" + (date.getMonth()+1) + "-" + date.getDate();
-    }
-  });
+    $('#article-page-example').articlePages({
+      template: "#article-box-template", // element of template
+      perPage: 10, // how many articles per page
+      dateFormat: function(date) {
+          // for formating date object into string
+          return date.getFullYear() + "-" + (date.getMonth()+1) + "-" + date.getDate();
+      }
+    });
   
 #####Additional actions
 
 jQueryElement.articlePages('prev'): gets previous older page
+
 jQueryElement.articlePages('next'): gets next newer page
+
 jQueryElement.articlePages('showPage', nr): gets page umber "nr"
 
 ## Form plugins
