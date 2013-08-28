@@ -85,9 +85,11 @@ It is a jquery plugin that communicates with article api and fetches list with p
             // for formating date object into string
             return date.getFullYear() + "-" + (date.getMonth()+1) + "-" + date.getDate();
         },
-        nr_articles: {{ articles.size }}, // maximum number of articles must be passed from template to get pagination numbers
+        nr_articles: {{ articles.size }}, // maximum number of articles must be passed from template to get pagination numbers. if omitted numbers will not be displayed between navigation arrows
         pageId: 123, // if multiple blogs are present on site adding blog listing page here limits results to that blog 
-        tags: ["news", "releases"] // limits results to blog posts with given tags
+        tags: ["news", "releases"], // limits results to blog posts with given tags
+        older: "older &gt;", // older button text
+        newer: "&lt; newer" // newer button text
     });
   
 #####Additional actions
