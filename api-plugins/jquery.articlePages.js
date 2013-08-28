@@ -5,7 +5,9 @@
         perPage: 10,
         dateFormat: function(date) {
             return date.getFullYear() + "-" + (date.getMonth()+1) + "-" + date.getDate();
-        }
+        },
+        older: "older &gt;",
+        newer: "&lt; newer"
     };
     
     var template = function(html, replacements) {
@@ -65,16 +67,22 @@
                         "body": article.body
                     }));
                 }, this));
+                if(this.$pageLinks) {
+                    this.$pageLinks.find('.nr-btn.active').removeClass('active');
+                    this.$pageLinks.find('.nr-btn[data-page="'+this.currentPage+'"]').addClass('active');
+                }
             }
         },
         
         next: function() {
-            this.fetch(this.currentPage + 1, $.proxy(function(articles) {
-                if (articles) {
-                    this.currentPage += 1;
-                    this.render(articles);
-                }    
-            }, this));
+            if (!this.options.nr_articles || this.currentPage < Math.ceil(this.options.nr_articles / this.options.perPage)) {
+                this.fetch(this.currentPage + 1, $.proxy(function(articles) {
+                    if (articles) {
+                        this.currentPage += 1;
+                        this.render(articles);
+                    }    
+                }, this));
+            }
         }, 
         
         prev: function() {
@@ -95,7 +103,40 @@
                     this.render(articles);
                 }    
             }, this));
-        }    
+        },
+        
+        getPageLinks: function() {
+            
+            if (!this.$pageLinks) {
+                var $list = $('<span></span>');
+            
+                
+                
+                $list.append($('<a href="#" class="newer-btn">'+ this.options.newer +'</a>').click($.proxy(function(event) {
+                    event.preventDefault();
+                    this.prev();
+                }, this)));
+                        
+                if (this.options.nr_articles) {
+                    var pages = Math.ceil(this.options.nr_articles / this.options.perPage);
+                    for (var i=1; i <= pages; i++) {
+                        $list.append($('<a href="#" class="nr-btn" data-page="'+i+'">'+i+'</a>').click($.proxy(function(event) {
+                            event.preventDefault();
+                            this.showPage(parseInt($(event.target).data('page'), 10));
+                        }, this)));
+                    }
+                }
+                
+                $list.append($('<a href="#" class="older-btn">'+ this.options.older +'</a>').click($.proxy(function(event) {
+                    event.preventDefault();
+                    this.next();
+                }, this)));
+                
+                this.$pageLinks = $list;
+            }
+            
+            return this.$pageLinks;
+        }
     };
     
     $.fn.articlePages = function(options, param) {
@@ -115,11 +156,14 @@
                         $(this).data('article-pages').showPage(param);
                     }
                 break;
+                case "getPageLinks":
+                    return $(this).data('article-pages').getPageLinks();
+                break;
             }
         } else {
             return this.each(function() {
                 if (!$(this).data('article-pages')) {
-                    var o = new ArticlePages($(this));
+                    var o = new ArticlePages($(this), options);
                     $(this).data('article-pages', o);
                 }
             });

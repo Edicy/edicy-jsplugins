@@ -27,36 +27,38 @@ It is a jquery plugin that communicates with article api and fetches list with p
     
 #####HTML:
 
-    <style>
-      .article-box { background: #def; padding: 15px; border-radius: 5px; margin-bottom: 10px; }
-    </style>
+    <style type="text/css">
+      .article-box, #page-numbers a { background: #def; padding: 5px 10px; border-radius: 5px; margin-bottom: 10px; }
+      #page-numbers a { padding: 5px; display: inline-block; margin-right: 5px; }
+      #page-numbers a.active { background: #789; color: white; }
+    </style> 
 
     <div id="article-page-example"><!-- articles will be rendered here --></div>
-    
-    <button id="article-page-next">&lt; Older </button>
-    <button id="article-page-prev">Newer &gt;</button>
-    <span id="loading-status">Loading ...</span>
+    <span id="page-numbers"></span><!-- navigation controls -->
+    <span id="loading-status">Loading ...</span> <!-- simple loding indicator --> 
     
 #####Script of binding:
 
+    <!-- plugin needs jQuery to work -->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+
+    <script type="text/javascript" src="jquery.articlePages.js"></script> 
     <script type="text/javascript">
-      // initiates articles
-      $('#article-page-example').articlePages();
-      
-      // making prev and next buttons work
-      $('#article-page-prev').click(function() {
-          $('#article-page-example').articlePages('prev');
-      });
-      $('#article-page-next').click(function() {
-        $('#article-page-example').articlePages('next');
-      });
-      
-      // binding loading events to show user
-      $('#article-page-example').on({
-        'articles.loading': function() { $('#loading-status').html('Loading ...'); },
-        'articles.loaded': function() { $('#loading-status').html(''); }
-      });
-    </script>
+        // initiates articles with 5 articles per page and  
+        $('#article-page-example').articlePages({
+            perPage: 5,
+            nr_articles: {{ articles.size }}
+        });
+    
+        // geting pagelinks jQuery object and adding it into suitable dom element 
+        $('#page-numbers').append($('#article-page-example').articlePages('getPageLinks'));  
+
+        // binding very simple loading indicator
+        $('#article-page-example').on({
+          'articles.loading': function() { $('#loading-status').html('Loading ...'); },
+          'articles.loaded': function() { $('#loading-status').html(''); }
+        });
+    </script> 
     
 ####Configuration parameters:
 
@@ -77,21 +79,28 @@ It is a jquery plugin that communicates with article api and fetches list with p
 #####Options on initiation:
   
     $('#article-page-example').articlePages({
-      template: "#article-box-template", // element of template
-      perPage: 10, // how many articles per page
-      dateFormat: function(date) {
-          // for formating date object into string
-          return date.getFullYear() + "-" + (date.getMonth()+1) + "-" + date.getDate();
-      }
+        template: "#article-box-template", // element of template
+        perPage: 10, // how many articles per page
+        dateFormat: function(date) {
+            // for formating date object into string
+            return date.getFullYear() + "-" + (date.getMonth()+1) + "-" + date.getDate();
+        },
+        nr_articles: {{ articles.size }}, // maximum number of articles must be passed from template to get pagination numbers
+        pageId: 123, // if multiple blogs are present on site adding blog listing page here limits results to that blog 
+        tags: ["news", "releases"] // limits results to blog posts with given tags
     });
   
 #####Additional actions
 
-jQueryElement.articlePages('prev'): gets previous older page
+jQueryElement.articlePages('prev'): navigates to previous older page
 
-jQueryElement.articlePages('next'): gets next newer page
+jQueryElement.articlePages('next'): navigates to next newer page
 
-jQueryElement.articlePages('showPage', nr): gets page umber "nr"
+jQueryElement.articlePages('showPage', nr): navigates to page number "nr"
+
+jQueryElement.articlePages('getPageLinks'): returns pagelinks jQuery object
+
+jQueryElement.articlePages('getObject'): returns whole control object if ever needed
 
 ## Form plugins
 
