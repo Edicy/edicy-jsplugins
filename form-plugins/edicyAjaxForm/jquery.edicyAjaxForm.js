@@ -7,7 +7,8 @@
         },
         error: function(text) {
             // alert(text);
-        }
+        },
+        formdata_error: "Your browser is too old to support file upload from this form."
     };
     
     var EdicyAjaxForm = function(el, options) {
@@ -20,18 +21,31 @@
     EdicyAjaxForm.prototype = {
         init: function() {
             this.$el.submit($.proxy(this.handleSubmit, this));
+            if (!window.FormData) {
+                this.$el.find('.form_field_file').after('<div class="form_field_error">' + this.options.formdata_error + '</div>');
+            }
         },
         
         handleSubmit: function(event) {
             event.preventDefault();
+            var params = {
+                    method: 'post',
+                    url: window.location,
+                    success: $.proxy(this.handleAjaxSuccess, this),
+                    error: $.proxy(this.handleAjaxError, this)
+                };
+            
+            if (window.FormData) {
+                params.data = new FormData(this.$el.get(0));
+                params.cache = false;
+                params.contentType = false;
+                params.processData = false;
+            } else {
+                params.data = this.$el.serialize();
+            }
+            
             this.clearErrors();
-            $.ajax({
-                method: 'post',
-                data: this.$el.serialize(),
-                url: window.location,
-                success: $.proxy(this.handleAjaxSuccess, this),
-                error: $.proxy(this.handleAjaxError, this)
-            });
+            $.ajax(params);
         },
         
         handleAjaxSuccess: function(data) {
