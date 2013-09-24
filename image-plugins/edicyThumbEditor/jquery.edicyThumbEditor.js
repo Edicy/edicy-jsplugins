@@ -138,7 +138,7 @@
                 var model = ui.helper.data('model');
                 if (model.isImage()) {
                     this.data = {
-                        "src": model.get((this.optionsuseOriginalImage) ? 'src' : 'large_thumbnail_src'),
+                        "src": model.get((this.options.useOriginalImage) ? 'src' : 'large_thumbnail_src'),
                         "width": model.get('width'),
                         "height": model.get('height')
                     }    
