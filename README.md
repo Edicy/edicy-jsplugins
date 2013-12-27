@@ -10,24 +10,21 @@ Javascript wrapper for Edicy custom data API. Enables user to save, retrieve and
 Set attributes are available to ligquid markup when rendering via `object.data.key` eg: `{{ article.data.bgcolor }}`
 
 #### Usage
-#### Initiation:
+##### Initiation:
     var articleData = new CustomField({
         type: "article", // allowed values "article", "page", "site"
         id: {{ article.id }} // // Must be defined for "page" ({{page.id}}) or "article" ({{ article.id }}) 
     });
 
-#### Binding to events: 
+##### Binding to events: 
 Avaliable events:
 
-* success
-* success:get
-* success:set
-* success:remove
-* error
-* error:get
-* error:set
-* error:remove
-  
+success, success:get, success:set, success:remove
+
+error, error:get, error:set, error:remove
+
+
+    
     articleData.on('success:get', function(data) {
       // handle data
     });
@@ -36,7 +33,7 @@ Avaliable events:
       // handle xhr
     });
 
-#### Setting data: 
+##### Setting data: 
 
     // syntax: object.set(key, value, options);
     
@@ -54,7 +51,7 @@ Avaliable events:
     });
   
   
-#### Getting data: 
+##### Getting data: 
     // syntax: object.get(key, options);
     
     articleData.get();
@@ -75,7 +72,7 @@ Avaliable events:
       }
     });
   
-#### Removing key: 
+##### Removing key: 
     // syntax: object.remove(key, options);
     
     articleData.remove("bgcolor");
