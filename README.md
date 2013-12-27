@@ -62,8 +62,8 @@ Set attributes are available to ligquid markup when rendering via `object.data.k
     });
     
     // removing key
-    articleData.get("bgcolor");
-    articleData.get("bgcolor", {
+    articleData.remove("bgcolor");
+    articleData.remove("bgcolor", {
       success: function(data) {
       },
       error: function(xhr) {
