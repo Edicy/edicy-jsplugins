@@ -20,7 +20,6 @@ Set attributes are available to ligquid markup when rendering via `object.data.k
 Avaliable events:
 
 success, success:get, success:set, success:remove
-
 error, error:get, error:set, error:remove
 
 
