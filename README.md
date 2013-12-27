@@ -9,59 +9,75 @@ Various javascrpt plugins and widgets for Edicy cms.
 Javascript wrapper for Edicy custom data API. Enables user to save, retrieve and manage custom key:value pairs on page/site/article.
 Set attributes are available to ligquid markup when rendering via `object.data.key` eg: `{{ article.data.bgcolor }}`
 
-##### Example:
-    
-    // initiation
+#### Usage
+#### Initiation:
     var articleData = new CustomField({
         type: "article", // allowed values "article", "page", "site"
         id: {{ article.id }} // // Must be defined for "page" ({{page.id}}) or "article" ({{ article.id }}) 
     });
-    
-    // binding to events
-    // avaliable events:
-    //    success
-    //    success:get
-    //    success:set
-    //    success:remove
-    //    error
-    //    error:get
-    //    error:set
-    //    error:remove
+
+#### Binding to events: 
+Avaliable events:
+
+* success
+* success:get
+* success:set
+* success:remove
+* error
+* error:get
+* error:set
+* error:remove
+  
     articleData.on('success:get', function(data) {
-      // hanle data
+      // handle data
     });
     
-    // setting data
-    // articleData.set(key, value, options);
+    articleData.on('error:get', function(xhr) {
+      // handle xhr
+    });
+
+#### Setting data: 
+
+    // syntax: object.set(key, value, options);
+    
     articleData.set({
       "bgcolor": "#abcdef"
     });
+    
     articleData.set("bgcolor", "#abcdef");
+    
     articleData.set("bgcolor", "#abcdef" {
       success: function(data) {
       },
       error: function(xhr) {
       }
     });
+  
+  
+#### Getting data: 
+    // syntax: object.get(key, options);
     
-    // getting data
-    // articleData.get(key, options);
     articleData.get();
+    
     articleData.get({
       success: function(data) {
       },
       error: function(xhr) {
       }
     });
+    
     articleData.get("bgcolor");
+    
     articleData.get("bgcolor", {
       success: function(data) {
       },
       error: function(xhr) {
       }
     });
+  
+#### Removing key: 
+    // syntax: object.remove(key, options);
     
-    // removing key
     articleData.remove("bgcolor");
     articleData.remove("bgcolor", {
       success: function(data) {
