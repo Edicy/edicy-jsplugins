@@ -43,7 +43,12 @@
             
             if (data !== null) {
                 wrappedData = {};
-                wrappedData[this.getTypeWrapper(key)] = data;
+                if (data instanceof Object) {
+                    wrappedData[this.getTypeWrapper(key)] = {};
+                    wrappedData[this.getTypeWrapper(key)].data = data; 
+                } else {
+                    wrappedData[this.getTypeWrapper(key)] = data; 
+                }
             }    
             
             if (url && wrappedData !== null) {
