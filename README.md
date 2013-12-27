@@ -1,6 +1,6 @@
 #Edicy javascript plugins
 
-Various javascrpt plugins and widgets for Edicy cms.
+Various javascript plugins and widgets for Edicy cms.
 
 ## API plugins
 
