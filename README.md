@@ -19,17 +19,20 @@ Set attributes are available to ligquid markup when rendering via `object.data.k
 ##### Binding to events: 
 Avaliable events:
 
-`success`, `success:get`, `success:set`, `success:remove`, `error`, `error:get`, `error:set`, `error:remove`
+`success`, `error`
 
+    var handleSuccess =  function(data, request) {
+      var type = request.type; // "get", "set" or "remove"
+      var key = request.key // the specific key that was given or null for batch get request
+    };
 
-    
-    articleData.on('success:get', function(data) {
-      // handle data
+    articleData.on('success',   handleSuccess);
+
+    articleData.on('error', function(response,  request) {
+      alert(response.message + ' Request:' +  request .type + ' Key:' + request.key);
     });
-    
-    articleData.on('error:get', function(xhr) {
-      // handle xhr
-    });
+
+    articleData.off('success',  handleSuccess); 
 
 ##### Setting data: 
 
@@ -44,7 +47,8 @@ Avaliable events:
     articleData.set("bgcolor", "#abcdef" {
       success: function(data) {
       },
-      error: function(xhr) {
+      error: function(response) {
+        alert(response.message);
       }
     });
   
@@ -57,7 +61,7 @@ Avaliable events:
     articleData.get({
       success: function(data) {
       },
-      error: function(xhr) {
+      error: function(response) {
       }
     });
     
@@ -66,7 +70,7 @@ Avaliable events:
     articleData.get("bgcolor", {
       success: function(data) {
       },
-      error: function(xhr) {
+      error: function(response) {
       }
     });
   
@@ -77,7 +81,7 @@ Avaliable events:
     articleData.remove("bgcolor", {
       success: function(data) {
       },
-      error: function(xhr) {
+      error: function(response) {
       }
     });
 
