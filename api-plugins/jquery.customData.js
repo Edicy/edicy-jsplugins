@@ -1,4 +1,12 @@
-// needs jQuery to work
+// Javascript toolkit for Edicy custom data API
+// Author: Oliver Pulges (2014.01)
+//
+// Version: 1.0
+// Dependencies: jQuery (http://jquery.com)
+//
+// Library source url: https://github.com/Edicy/edicy-jsplugins/blob/master/api-plugins/jquery.customData.js
+// Documentation: http://www.edicy.com/developer/code-examples/javascript-tricks/custom-data-api-js-toolkit
+
 (function($) {
     
     var defaults = {
@@ -13,7 +21,7 @@
     
     CustomField.prototype = {
         get: function() {
-            var key = (arguments && arguments[0] && (typeof arguments[0] === "string" || arguments[0] instanceof Array)) ? arguments[0] : null,
+            var key = (arguments && arguments[0] && (typeof arguments[0] === "string")) ? arguments[0] : null,
                 opts = (key) ? ((arguments[1]) ? arguments[1] : null) : (arguments[0] || null),
                 url = this.getUrl();
                 
@@ -27,7 +35,7 @@
                       this.handleSuccess(data, 'get', key, opts);
                     }, this),
                     error: $.proxy(function (response) {
-                      this.handleError(response, 'get', opts);
+                      this.handleError(response, 'get', key, opts);
                     }, this)
                 });
             }
@@ -35,7 +43,7 @@
         },
         
         set: function() {
-            var key = (arguments && arguments[0] && (typeof arguments[0] === "string" || arguments[0] instanceof Array)) ? arguments[0] : null,
+            var key = (arguments && arguments[0] && (typeof arguments[0] === "string")) ? arguments[0] : null,
                 data = (key) ? arguments[1] : arguments[0] || null,
                 wrappedData = null,
                 opts = (key) ? ((arguments[2]) ? arguments[2] : null) : (arguments[1] || null),
@@ -45,11 +53,11 @@
                 wrappedData = {};
                 if (data instanceof Object) {
                     wrappedData[this.getTypeWrapper(key)] = {};
-                    wrappedData[this.getTypeWrapper(key)].data = data; 
+                    wrappedData[this.getTypeWrapper(key)].data = data;
                 } else {
-                    wrappedData[this.getTypeWrapper(key)] = data; 
+                    wrappedData[this.getTypeWrapper(key)] = data;
                 }
-            }    
+            }
             
             if (url && wrappedData !== null) {
                 jQuery.ajax({
@@ -59,17 +67,17 @@
                     url: url,
                     data: JSON.stringify(wrappedData),
                     success: $.proxy(function (data2) {
-                      this.handleSuccess(data2, 'set', null, opts);
+                        this.handleSuccess(data2, 'set', key, opts);
                     }, this),
                     error: $.proxy(function (response) {
-                      this.handleError(response, 'set', opts);
+                        this.handleError(response, 'set', key, opts);
                     }, this)
                 });
             }
         },
         
         remove: function(key, opts) {
-            var  url = this.getUrl(key);
+            var url = this.getUrl(key);
             
             if (key && url) {
                 jQuery.ajax({
@@ -78,33 +86,36 @@
                     contentType: 'application/json',
                     url: url,
                     success: $.proxy(function (data) {
-                      this.handleSuccess(data, 'remove', null, opts);
+                        this.handleSuccess(data, 'remove', key, opts);
                     }, this),
                     error: $.proxy(function (response) {
-                      this.handleError(response, 'remove', opts);
+                        this.handleError(response, 'remove', key, opts);
                     }, this)
                 });
             }
         },
         
         handleSuccess: function(data, fname, key, opts) {
-        	var obj = data.data || data;
-        	if (key) {
-        	    obj = obj[key];
-        	}
-        	if (opts && opts.success) {
-        	    opts.success(obj);
-        	}
-        	this.trigger('success:' + fname, obj);
-        	this.trigger('success', obj);
+            var obj = data.data || data;
+            if (key && fname === "get") {
+                obj = obj[key];
+            }
+            opts && opts.success && opts.success(obj);
+            this.trigger('success', obj, {
+                type: fname,
+                key: key
+            });
         },
         
-        handleError: function(response, fname, opts) {
-        	if (opts && opts.error) {
-        	    opts.error(response);
-        	}
-        	this.trigger('error:' + fname, response);
-        	this.trigger('error', response);
+        handleError: function(response, fname, key, opts) {
+            var data = (response.responseText) ? JSON.parse(response.responseText) : null;
+            
+            opts && opts.error && opts.error(data);
+            
+            this.trigger('error', data, {
+                type: fname,
+                key: key
+            });
         },
         
         getUrl: function(key) {
@@ -121,19 +132,14 @@
                     }
                 break;
                 case "site":
-                    url = (key) ? '/admin/api/site_properties/data/' + key + '.json' : '/admin/api/site_properties.json';
+                    url = (key) ? '/admin/api/site/data/' + key + '.json' : '/admin/api/site.json';
                 break;
             }
             return url;
         },
         
         getTypeWrapper: function(key) {
-            var map = {
-                "site" : "site_property",
-                "page" : "page",
-                "article": "article"
-            };
-            return (key) ? "value" : map[this.options.type] || false;
+            return (key) ? "value" : this.options.type || false;
         },
         
         on: function(evname,callback) {
@@ -155,9 +161,9 @@
             
         },
         
-        trigger: function(evname, data) {
+        trigger: function(evname, data, response) {
             if (this._callbacks[evname]) {
-              this._callbacks[evname].fire(data);
+              this._callbacks[evname].fire(data, response);
             }
         }
     };
