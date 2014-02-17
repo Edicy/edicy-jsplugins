@@ -239,6 +239,19 @@ Wrapper and title element classes can be configured as follows:
         wrapperClass: 'image-alt-wrapper'
       });
     </script>
+
+### Simple Image drop cacher om page
+A jQuery based plugin that makes element listen image drop from edicy files and triggers 'dropimage' event with dropped image url in data
+
+Usage: 
+
+    <div id="drophere">Drop here!</div>
+
+    <script type="text/javascript">
+    $('#drophere').on('dropimage', function(event, src) {
+       alert('image source is ' + src);
+    });
+    </script>
     
 ### Thumb editor - Image binding to content area
 
