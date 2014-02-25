@@ -1,6 +1,7 @@
 #Edicy javascript plugins
 
-Various javascript plugins and widgets for Edicy cms.
+Various javascript plugins and widgets for [Edicy cms](http://www.edicy.com).
+Detailed specks and examples can be found from [Edicy Developer Site](http://www.edicy.com/developer).
 
 ## API plugins
 
