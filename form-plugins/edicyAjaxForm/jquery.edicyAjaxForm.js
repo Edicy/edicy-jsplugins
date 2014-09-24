@@ -29,7 +29,7 @@
         handleSubmit: function(event) {
             event.preventDefault();
             var params = {
-                    method: 'post',
+                    type: 'post',
                     url: window.location,
                     success: $.proxy(this.handleAjaxSuccess, this),
                     error: $.proxy(this.handleAjaxError, this)
