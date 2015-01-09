@@ -89,7 +89,7 @@
                     }
                 }
             }
-            this.options.success((errors.base && errors.base[0]) ? errors.base[0] : "Error", errors);
+            this.options.error((errors.base && errors.base[0]) ? errors.base[0] : "Error", errors);
         },
 
         formSubmited: function(notice) {
