@@ -250,7 +250,7 @@ Usage:
     <div id="drophere">Drop here!</div>
 
     <script type="text/javascript">
-    $('#drophere').on('dropimage', function(event, src) {
+    $('#drophere').imgDropCatcher().on('dropimage', function(event, src) {
        alert('image source is ' + src);
     });
     </script>

@@ -1,6 +1,9 @@
 /* example can be found at http://www.edicy.com/developer/code-examples/javascript-tricks/image-binding-to-content */
 (function($) {
 
+    // Fixes missing class in Voog
+    $('.edy-texteditor-view').addClass('fci-editor');
+
     var defaults = {
         placeholder: "Drag cover image for this post here.",
         dragHelp: "Drag image to adjust crop area.",
@@ -21,22 +24,22 @@
         height: 200,
         editorEl: '.fci-editor'
     };
-    
+
     var AppendThumb = function(el, options) {
         this.$el = $(el);
         this.options = $.extend(defaults, options);
         this.data = $(options.$dataInside).find('.js-thumb-saver-data').data('thumb-info');
         this.init();
     };
-    
+
     AppendThumb.prototype = {
         init: function() {
             var moveHeight = (this.options.width / this.options.height >= this.data.width / this.data.height);
-            
+
             this.$thumb = $(this.options.thumbHtml.replace(/{{\s*src\s*}}/gi, this.data.src));
             this.$thumb.width(this.options.width);
             this.$thumb.height(this.options.height);
-            
+
             if (moveHeight) {
                 this.$thumb.find('.inner-image').css({
                     'width': this.options.width + 'px',
@@ -51,7 +54,7 @@
             this.$el.append(this.$thumb);
         }
     };
-    
+
     var ThumbEditor = function(el, options) {
         this.options = $.extend(defaults, options);
         this.$el = $(el);
@@ -65,16 +68,16 @@
             }, this));
         }
     };
-    
+
     ThumbEditor.prototype = {
-        
+
         init: function() {
             if (window.Edicy && window.Edicy.jQuery) {
                 this.$el.html(this.getEditor());
                 this.data = this.getData();
-                
+
                 Edicy.jQuery(this.$el.find('.js-thumb-editor').get(0)).droppable({
-                    scope: 'thumb', 
+                    scope: 'thumb',
                     tolerance: 'pointer'
                 }).on({
                     'dropover': $.proxy(this.handleDropover, this),
@@ -82,15 +85,15 @@
                     'drop': $.proxy(this.handleDrop, this),
                     'mousedown': $.proxy(this.handleMouseDown, this)
                 });
-                
+
                 this.$el.find('.delete-btn').on('click', $.proxy(this.handleDelete, this));
-    
+
                 if (this.data) {
                     this.changeImage();
                 }
             }
         },
-        
+
         // returns thumbnail editor element
         getEditor: function() {
             var html = this.options.editorHtml;
@@ -99,10 +102,10 @@
             html = html.replace(/{{\s*width\s*}}/gi, this.options.width);
             html = html.replace(/{{\s*height\s*}}/gi, this.options.height);
             html = html.replace(/{{\s*width_b\s*}}/gi, this.options.width + 2);
-            
+
             return $(html);
         },
-        
+
         getData: function() {
             var data = null;
             if (this.$saveTo.find('.js-thumb-saver-data').length > 0) {
@@ -114,24 +117,24 @@
             }
             return data;
         },
-        
+
         setData: function() {
             var $d = null,
                 imgtop = this.$el.find('.inner-image').css('top') || 0,
                 imgleft = this.$el.find('.inner-image').css('left') || 0;
-                
+
             if (this.$saveTo.find('.js-thumb-saver-data').length > 0) {
                 $d = this.$saveTo.find('.js-thumb-saver-data');
             } else {
                 $d =  $('<div/>', {'class': 'js-thumb-saver-data'}).appendTo(this.$saveTo);
             }
-            
+
             $d.attr({
                 'src': this.data.src,
                 'data-thumb-info': '{"src":"' + this.data.src + '", "width": "' + this.data.width + '", "height": "' + this.data.height + '", "top": "' + imgtop + '", "left": "' + imgleft + '"}'
             });
         },
-        
+
         handleDrop: function(event, ui) {
             this.$el.removeClass('over');
             if (ui.helper.data('model')) {
@@ -141,20 +144,20 @@
                         "src": model.get((this.options.useOriginalImage) ? 'src' : 'large_thumbnail_src'),
                         "width": model.get('width'),
                         "height": model.get('height')
-                    }    
+                    }
                     this.changeImage();
                 }
             }
         },
-        
+
         handleDropover: function() {
             this.$el.addClass('over');
         },
-        
+
         handleDropout: function() {
             this.$el.removeClass('over');
         },
-        
+
         handleMouseDown: function(event) {
             event.preventDefault();
             if (this.$el.find('.inner-image').length > 0) {
@@ -163,7 +166,7 @@
                     w = this.options.width,
                     h = this.options.height,
                     moveHeight = (w / h >= this.data.width / this.data.height);
-                                        
+
                 this.startPos = {
                     x: event.pageX,
                     y: event.pageY,
@@ -173,36 +176,36 @@
                 this.bindImgMoveEvents();
             }
         },
-        
+
         handleMouseMove: function(event) {
             event.preventDefault();
             var pos = {x: event.pageX, y: event.pageY};
             this.changeImgPos(pos);
         },
-        
+
         handleMouseOut: function(event) {
             var pos = {x: event.pageX, y: event.pageY};
             this.changeImgPos(pos);
             this.endImgReposition();
         },
-        
+
         handleMouseUp: function(event) {
             var pos = {x: event.pageX, y: event.pageY};
             this.changeImgPos(pos);
             this.endImgReposition();
         },
-        
+
         handleDelete: function() {
             this.$el.find('.inner-image').remove();
             this.$saveTo.find('.js-thumb-saver-data').remove();
             this.$el.find('.thumb-editor-wrapper').removeClass('active');
         },
-        
+
         endImgReposition: function() {
             this.unbindImgMoveEvents();
             this.setData();
         },
-        
+
         bindImgMoveEvents: function() {
             this.$el.find('.js-thumb-editor').on({
                 'mousemove': $.proxy(this.handleMouseMove, this),
@@ -210,13 +213,13 @@
                 'mouseup': $.proxy(this.handleMouseUp, this)
             });
         },
-        
+
         unbindImgMoveEvents: function() {
             this.$el.find('.js-thumb-editor').off('mousemove');
             this.$el.find('.js-thumb-editor').off('mouseout');
             this.$el.find('.js-thumb-editor').off('mouseup');
         },
-        
+
         changeImgPos: function(pos) {
             var $img = this.$el.find('.inner-image'),
                 movex = pos.x - this.startPos.x,
@@ -226,8 +229,8 @@
                 moveHeight = (w / h >= this.data.width / this.data.height),
                 virth, virtw,
                 nx, ny;
-                
-                
+
+
             if (moveHeight) {
                 virth = (w / this.data.width) * this.data.height;
                 ny = this.startPos.bgy + movey;
@@ -242,20 +245,20 @@
                 $img.css({'left': nx +"px"});
             }
         },
-        
+
         changeImage: function() {
             var $img = $('<img/>', {'src': this.data.src, 'class':"inner-image"}),
                 w = this.options.width,
                 h = this.options.height,
                 moveHeight = (w / h >= this.data.width / this.data.height);
-            
+
             this.$el.find('.thumb-editor-wrapper').addClass('active');
             if (this.$el.find('.inner-image').length > 0) {
                 this.$el.find('.inner-image').remove();
             }
-            
+
             this.$el.find('.js-thumb-editor').prepend($img);
-            
+
             if (moveHeight) {
                 $img.css({
                     'width': w + 'px',
@@ -273,25 +276,25 @@
             }
             this.setData();
         }
-        
-        
+
+
     };
-    
+
     $.fn.edicyThumbEditor = function (options) {
         var $e = this.eq(0),
             data = $e.data('edicyThumbEditor');
-        
+
         if (!data) {
             $e.data('edicyThumbEditor', new ThumbEditor($e, options));
         }
-        
+
         return $e;
     };
-    
+
     $.fn.edicyAppendThumb = function (options) {
         var $e = this.eq(0);
         $e.data('edicyAppendThumb', new AppendThumb($e, options));
         return $e;
     };
-    
+
 })(jQuery);
