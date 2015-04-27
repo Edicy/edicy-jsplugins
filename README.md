@@ -1,14 +1,14 @@
-#Edicy javascript plugins
+#Voog javascript plugins
 
-Various javascript plugins and widgets for [Edicy cms](http://www.edicy.com).
+Various javascript plugins and widgets for [Voog cms](http://www.voog.com).
 
-Detailed specifications and examples can be found from [Edicy Developer Site](http://www.edicy.com/developer).
+Detailed specifications and examples can be found from [Voog Developer Site](http://www.voog.com/developers).
 
 ## API plugins
-
+edi
 ### Site custom data management wrapper (Deprecated! Use [CustomData](http://www.voog.com/developers/templating/javascripts/customdata))
 
-Javascript wrapper for Edicy custom data API. Enables user to save, retrieve and manage custom key:value pairs on page/site/article.
+Javascript wrapper for custom data API. Enables user to save, retrieve and manage custom key:value pairs on page/site/article.
 Set attributes are available to ligquid markup when rendering via `object.data.key` eg: `{{ article.data.bgcolor }}`
 
 #### Usage
@@ -87,7 +87,7 @@ Avaliable events:
       }
     });
 
-### Edicy blog article pages fetcher
+###  Blog article pages fetcher
 
 It is a jquery plugin that communicates with article api and fetches list with pagination.
 
@@ -189,9 +189,9 @@ jQueryElement.articlePages('getObject'): returns whole control object if ever ne
 
 ## Form plugins
 
-### Edicy Ajax Form plugin
+### Ajax Form plugin
 
-It is an jQuery plugin that makes Edicy forms submit with ajax. It handles all error messages to be displayed as usual by the side of form areas. File upload in form is supported only in modern browsers. In Internet Explorer case it means IE10+. In older browsers if file input is present an error message is displayed besides it and file is not sent with data. Error message can be configured with parameter "formdata_error".
+It is an jQuery plugin that makes forms submit with ajax. It handles all error messages to be displayed as usual by the side of form areas. File upload in form is supported only in modern browsers. In Internet Explorer case it means IE10+. In older browsers if file input is present an error message is displayed besides it and file is not sent with data. Error message can be configured with parameter "formdata_error".
 
     <script type="text/javascript">
         $('#content form').edicyAjaxForm({
@@ -205,7 +205,7 @@ It is an jQuery plugin that makes Edicy forms submit with ajax. It handles all e
         });
     </script>
     
-### Edicy Form placeholders
+### Form placeholders
 
 jQuery plugin that Makes form field titles displayed as placeholders.
 Works together with [mathiasbynens/jquery-placeholder](https://github.com/mathiasbynens/jquery-placeholder) for making placeholder support to browsers without html5 placeholder support.
@@ -219,7 +219,7 @@ Works together with [mathiasbynens/jquery-placeholder](https://github.com/mathia
 
 ### Image alt titles (Deprecated! Use built in title for images)
 
-jQuery plugin that makes alt attribute of image to real titles. Useful in Edicy to make user editable titles under content images.
+jQuery plugin that makes alt attribute of image to real titles. Useful to make user editable titles under content images.
 
     <style type="text/css">
       .image-alt-title {
@@ -243,7 +243,7 @@ Wrapper and title element classes can be configured as follows:
     </script>
 
 ### Simple Image drop cacher om page (Deprecated! Use [Image Drop Area](http://www.voog.com/developers/templating/javascripts/image-drop-area))
-A jQuery based plugin that makes element listen image drop from edicy files and triggers 'dropimage' event with dropped image url in data
+A jQuery based plugin that makes element listen image drop from files and triggers 'dropimage' event with dropped image url in data
 
 Usage: 
 
@@ -257,7 +257,7 @@ Usage:
     
 ### Thumb editor - Image binding to content area (Deprecated! Use [Image Drop Area](http://www.voog.com/developers/templating/javascripts/image-drop-area))
 
-A jQuery based plugin that adds an fixed size image drag and drop area. User can change the image crop location. Data about image is saved to Edicy content area defined by user. It is useful if thumbnail images must be bound to pages or blog articles.
+A jQuery based plugin that adds an fixed size image drag and drop area. User can change the image crop location. Data about image is saved to content area defined by user. It is useful if thumbnail images must be bound to pages or blog articles.
     
     <link href="edicyThumbEditor.css" rel="stylesheet" />
     
