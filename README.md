@@ -5,7 +5,6 @@ Various javascript plugins and widgets for [Voog cms](http://www.voog.com).
 Detailed specifications and examples can be found from [Voog Developer Site](http://www.voog.com/developers).
 
 ## API plugins
-edi
 ### Site custom data management wrapper (Deprecated! Use [CustomData](http://www.voog.com/developers/templating/javascripts/customdata))
 
 Javascript wrapper for custom data API. Enables user to save, retrieve and manage custom key:value pairs on page/site/article.
