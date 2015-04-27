@@ -6,7 +6,7 @@ Detailed specifications and examples can be found from [Edicy Developer Site](ht
 
 ## API plugins
 
-### Site custom data management wrapper
+### Site custom data management wrapper (Deprecated! Use [CustomData](http://www.voog.com/developers/templating/javascripts/customdata))
 
 Javascript wrapper for Edicy custom data API. Enables user to save, retrieve and manage custom key:value pairs on page/site/article.
 Set attributes are available to ligquid markup when rendering via `object.data.key` eg: `{{ article.data.bgcolor }}`
@@ -217,7 +217,7 @@ Works together with [mathiasbynens/jquery-placeholder](https://github.com/mathia
 
 ## Image plugins
 
-### Image alt titles
+### Image alt titles (Deprecated! Use built in title for images)
 
 jQuery plugin that makes alt attribute of image to real titles. Useful in Edicy to make user editable titles under content images.
 
@@ -242,7 +242,7 @@ Wrapper and title element classes can be configured as follows:
       });
     </script>
 
-### Simple Image drop cacher om page
+### Simple Image drop cacher om page (Deprecated! Use [Image Drop Area](http://www.voog.com/developers/templating/javascripts/image-drop-area))
 A jQuery based plugin that makes element listen image drop from edicy files and triggers 'dropimage' event with dropped image url in data
 
 Usage: 
@@ -255,7 +255,7 @@ Usage:
     });
     </script>
     
-### Thumb editor - Image binding to content area
+### Thumb editor - Image binding to content area (Deprecated! Use [Image Drop Area](http://www.voog.com/developers/templating/javascripts/image-drop-area))
 
 A jQuery based plugin that adds an fixed size image drag and drop area. User can change the image crop location. Data about image is saved to Edicy content area defined by user. It is useful if thumbnail images must be bound to pages or blog articles.
     
