@@ -9,14 +9,14 @@
         }
     };
 
-    var EdicyAjaxForm = function(el, options) {
+    var VoogAjaxForm = function(el, options) {
         this.$el = $(el);
         this.id = $(el).attr('id');
         this.options = $.extend(defaults, options);
         this.init();
     };
 
-    EdicyAjaxForm.prototype = {
+    VoogAjaxForm.prototype = {
         init: function() {
             if (window.FormData) {
                 this.$el.submit($.proxy(this.handleSubmit, this));
@@ -92,11 +92,11 @@
         }
     };
 
-    $.fn.edicyAjaxForm = function (options) {
+    $.fn.voogAjaxForm = function (options) {
         return this.each(function () {
-            var data = $(this).data('edicyAjaxForm');
+            var data = $(this).data('voogAjaxForm');
             if (!data) {
-                $(this).data('edicyAjaxForm', new EdicyAjaxForm(this, options));
+                $(this).data('voogAjaxForm', new VoogAjaxForm(this, options));
             }
         });
     };
