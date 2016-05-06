@@ -6,22 +6,20 @@
         },
         error: function(text, errors) {
             // alert(text);
-        },
-        formdata_error: "Your browser is too old to support file upload from this form."
+        }
     };
 
-    var EdicyAjaxForm = function(el, options) {
+    var VoogAjaxForm = function(el, options) {
         this.$el = $(el);
         this.id = $(el).attr('id');
         this.options = $.extend(defaults, options);
         this.init();
     };
 
-    EdicyAjaxForm.prototype = {
+    VoogAjaxForm.prototype = {
         init: function() {
-            this.$el.submit($.proxy(this.handleSubmit, this));
-            if (!window.FormData) {
-                this.$el.find('.form_field_file').after('<div class="form_field_error">' + this.options.formdata_error + '</div>');
+            if (window.FormData) {
+                this.$el.submit($.proxy(this.handleSubmit, this));
             }
         },
 
@@ -34,14 +32,10 @@
                     error: $.proxy(this.handleAjaxError, this)
                 };
 
-            if (window.FormData) {
-                params.data = new FormData(this.$el.get(0));
-                params.cache = false;
-                params.contentType = false;
-                params.processData = false;
-            } else {
-                params.data = this.$el.serialize();
-            }
+            params.data = new FormData(this.$el.get(0));
+            params.cache = false;
+            params.contentType = false;
+            params.processData = false;
 
             this.clearErrors();
             $.ajax(params);
@@ -98,11 +92,11 @@
         }
     };
 
-    $.fn.edicyAjaxForm = function (options) {
+    $.fn.voogAjaxForm = function (options) {
         return this.each(function () {
-            var data = $(this).data('edicyAjaxForm');
+            var data = $(this).data('voogAjaxForm');
             if (!data) {
-                $(this).data('edicyAjaxForm', new EdicyAjaxForm(this, options));
+                $(this).data('voogAjaxForm', new VoogAjaxForm(this, options));
             }
         });
     };
