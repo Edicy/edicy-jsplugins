@@ -193,7 +193,7 @@ jQueryElement.articlePages('getObject'): returns whole control object if ever ne
 It is an jQuery plugin that makes forms submit with ajax. It handles all error messages to be displayed as usual by the side of form areas. File upload in form is supported only in modern browsers. In Internet Explorer case it means IE10+. In older browsers if file input is present an error message is displayed besides it and file is not sent with data. Error message can be configured with parameter "formdata_error".
 
     <script type="text/javascript">
-        $('#content form').edicyAjaxForm({
+        $('#content form').voogAjaxForm({
             success: function(text) {
                 alert(text)
             },
