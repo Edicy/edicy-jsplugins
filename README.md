@@ -1,4 +1,4 @@
-#Voog javascript plugins
+# Voog javascript plugins
 
 Various javascript plugins and widgets for [Voog cms](http://www.voog.com).
 
@@ -90,7 +90,7 @@ Avaliable events:
 
 It is a jquery plugin that communicates with article api and fetches list with pagination.
 
-#####Article template script:
+##### Article template script:
 
     <script type="text/html" id="article-box-template">
       <div class="article-box">
@@ -107,7 +107,7 @@ It is a jquery plugin that communicates with article api and fetches list with p
       </div>
     </script>
     
-#####HTML:
+##### HTML:
 
     <style type="text/css">
       .article-box, #page-numbers a { background: #def; padding: 5px 10px; border-radius: 5px; margin-bottom: 10px; }
@@ -119,7 +119,7 @@ It is a jquery plugin that communicates with article api and fetches list with p
     <span id="page-numbers"></span><!-- navigation controls -->
     <span id="loading-status">Loading ...</span> <!-- simple loding indicator --> 
     
-#####Script of binding:
+##### Script of binding:
 
     <!-- plugin needs jQuery to work -->
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
@@ -142,9 +142,9 @@ It is a jquery plugin that communicates with article api and fetches list with p
         });
     </script> 
     
-####Configuration parameters:
+#### Configuration parameters:
 
-#####Tempate replacement strings are:
+##### Template replacement strings are:
 
 [[url]]: url of article
 
@@ -158,7 +158,7 @@ It is a jquery plugin that communicates with article api and fetches list with p
 
 [[body]]: the main article body
   
-#####Options on initiation:
+##### Options on initiation:
   
     $('#article-page-example').articlePages({
         template: "#article-box-template", // element of template
@@ -174,17 +174,17 @@ It is a jquery plugin that communicates with article api and fetches list with p
         newer: "&lt; newer" // newer button text
     });
   
-#####Additional actions
+##### Additional actions
 
-jQueryElement.articlePages('prev'): navigates to previous older page
+`jQueryElement.articlePages('prev')`: navigates to previous older page
 
-jQueryElement.articlePages('next'): navigates to next newer page
+`jQueryElement.articlePages('next')`: navigates to next newer page
 
-jQueryElement.articlePages('showPage', nr): navigates to page number "nr"
+`jQueryElement.articlePages('showPage', nr)`: navigates to page number "nr"
 
-jQueryElement.articlePages('getPageLinks'): returns pagelinks jQuery object
+`jQueryElement.articlePages('getPageLinks')`: returns pagelinks jQuery object
 
-jQueryElement.articlePages('getObject'): returns whole control object if ever needed
+`jQueryElement.articlePages('getObject')`: returns whole control object if ever needed
 
 ## Form plugins
 
@@ -291,7 +291,7 @@ A jQuery based plugin that adds an fixed size image drag and drop area. User can
       {% endif %}
     </script>
     
-####Configuration parameters:
+#### Configuration parameters:
 
 **placeholder**: Placeholder text. Default: "Drag cover image for this post here."
 
